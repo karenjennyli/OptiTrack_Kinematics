@@ -3,7 +3,6 @@ from OptiTrackStreaming.DataStreamer import OptiTrackDataStreamer
 import numpy as np
 from time import sleep
 import time
-import ipdb
 
 # da = DeltaArray('/dev/ttyACM0') -- CHANGE PORT
 da = DeltaArray('COM3')

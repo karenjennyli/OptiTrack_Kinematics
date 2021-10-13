@@ -3,6 +3,7 @@ from OptiTrackStreaming.DataStreamer import OptiTrackDataStreamer
 import numpy as np
 from time import sleep
 import time
+import ipdb
 
 # da = DeltaArray('/dev/ttyACM0') -- CHANGE PORT
 da = DeltaArray('COM3')
@@ -45,12 +46,12 @@ sample = sample_domain(.05,.043,.003)
 
 # PRESET POSITIONS
 p = np.ones((sample.shape[0], 12)) * 0.0012
-p[:,3:6] = sample
+p[:,3:6] = sample # sets actuators 3-5 to sample workspace
 p = adjust_act_command(p)
 
 
 def print_posn():
-    #da.wait_until_done_moving()
+    #da.wait_until_done_moving() # I think I do want it to wait until done moving
     posn = da.get_joint_positions()
     print(posn[3:6])  # Motors 4-6
 
@@ -75,7 +76,7 @@ for i in range(0, p.shape[0]): # LOOP THROUGH ALL PRESET POSITIONS
     act_pos = da.get_joint_positions()[3:6]
     print("End Effector Position = ",pos-pos_0)
     print("Actuator Position",act_pos)
-    Data.append((sample[i,:],pos-pos_0))
+    Data.append((sample[i,:],pos-pos_0)) # (desired position, optitrack recorded position)
     save_training_data(np.array(Data),"training_data1")
 
 save_training_data(np.array(Data),"training_data1")

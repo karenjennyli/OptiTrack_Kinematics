@@ -702,7 +702,7 @@ class NatNetClient:
 
 
     # Unpack data from a motion capture frame message
-    def __unpack_mocap_data( self, data : bytes, packet_size, major, minor):
+    def __unpack_mocap_data( self, data, packet_size, major, minor):
         mocap_data = MoCapData.MoCapData()
         trace_mf( "MoCap Frame Begin\n-----------------" )
         data = memoryview( data )
@@ -1059,7 +1059,7 @@ class NatNetClient:
 
 
     # Unpack a data description packet
-    def __unpack_data_descriptions( self, data : bytes, packet_size, major, minor):
+    def __unpack_data_descriptions( self, data, packet_size, major, minor):
         data_descs = DataDescriptions.DataDescriptions()
         offset = 0
         # # of data sets to process
@@ -1248,7 +1248,7 @@ class NatNetClient:
                 data=bytearray(0)
         return 0
 
-    def __process_message( self, data : bytes, print_level=0):
+    def __process_message( self, data, print_level=0):
         #return message ID
         major = self.get_major()
         minor = self.get_minor()
@@ -1365,7 +1365,7 @@ class NatNetClient:
 
         #return self.send_request(self.data_socket,    self.NAT_REQUEST, command_str,  (self.server_ip_address, self.command_port) )
 
-    def send_commands(self,tmpCommands, print_results: bool =True):
+    def send_commands(self,tmpCommands, print_results=True):
         for sz_command in tmpCommands:
             return_code = self.send_command(sz_command)
             if(print_results):

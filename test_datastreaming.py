@@ -63,7 +63,7 @@ def retract():
 # retract()
 # pdb.set_trace()
 pos_0,rot_0,t = op.get_closest_datapoint(time.time())
-print("pos_0: ", pos_0)
+print("pos_0: ", pos_0, "\t poses: ", op.poses)
 
 Data = []
 # print_posn()
@@ -75,7 +75,7 @@ for i in range(0, p.shape[0]): # LOOP THROUGH ALL PRESET POSITIONS
     sleep(1) # just sleep to see if this works
     pos,rot,t = op.get_closest_datapoint(time.time())
     # act_pos = da.get_joint_positions()[3:6]
-    print("pos: ", pos)
+    print("pos: ", pos, "\t poses: ", op.poses)
     # print("End Effector Position = ",pos-pos_0)
     # print("Actuator Position",act_pos)
     Data.append((sample[i,:],pos-pos_0)) # (desired position, optitrack recorded position)

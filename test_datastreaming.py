@@ -3,6 +3,7 @@ from OptiTrackStreaming.DataStreamer import OptiTrackDataStreamer
 import numpy as np
 from time import sleep
 import time
+import pdb
 
 # da = DeltaArray('/dev/ttyACM0') -- CHANGE PORT
 # da = DeltaArray('COM3')
@@ -60,9 +61,9 @@ def retract():
     time.sleep(2)
 
 # retract()
-
+# pdb.set_trace()
 pos_0,rot_0,t = op.get_closest_datapoint(time.time())
-print(pos_0)
+print("pos_0: ", pos_0)
 
 Data = []
 # print_posn()
@@ -72,9 +73,10 @@ for i in range(0, p.shape[0]): # LOOP THROUGH ALL PRESET POSITIONS
     print(100*i/p.shape[0],"%","i","=",i)
     # da.wait_until_done_moving()
     sleep(1) # just sleep to see if this works
-    pos,rot,t = op.get_closest_datapoint(time.time()) # what is rots?
+    pos,rot,t = op.get_closest_datapoint(time.time())
     # act_pos = da.get_joint_positions()[3:6]
-    print("End Effector Position = ",pos-pos_0)
+    print("pos: ", pos)
+    # print("End Effector Position = ",pos-pos_0)
     # print("Actuator Position",act_pos)
     Data.append((sample[i,:],pos-pos_0)) # (desired position, optitrack recorded position)
     save_training_data(np.array(Data),"training_data1")
